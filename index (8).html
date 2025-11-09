@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedagogical Models - Digital Magazine</title>
+    <style>
+        :root {
+            --color-cream: #FCFCF9;
+            --color-dark: #1F2121;
+            --color-teal: #218D8D;
+            --color-orange: #E68161;
+            --color-purple: #6B21A8;
+            --color-blue: #1D4ED8;
+            --color-pink: #BE185D;
+            --color-green: #158040;
+            --color-yellow: #B45309;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Garamond', serif;
+            background: var(--color-cream);
+            color: var(--color-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .magazine-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 60px rgba(0,0,0,0.1);
+        }
+
+        /* Navigation */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom: 2px solid var(--color-teal);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--color-teal);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-dark);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-teal);
+            background: rgba(33, 141, 141, 0.1);
+        }
+
+        /* Page Styles */
+        .page {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Cover Page */
+        .cover-page {
+            background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-blue) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://pplx-res.cloudinary.com/image/upload/v1762654858/pplx_project_search_images/7130357bce961829efc99d8bcd892e86599c8895.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            mix-blend-mode: overlay;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .cover-title {
+            font-size: 5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        .cover-subtitle {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .cover-meta {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Table of Contents */
+        .toc-page {
+            background: linear-gradient(to bottom right, #FFF 50%, rgba(33, 141, 141, 0.05) 50%);
+        }
+
+        .toc-title {
+            font-size: 3.5rem;
+            color: var(--color-teal);
+            margin-bottom: 3rem;
+            border-bottom: 4px solid var(--color-orange);
+            padding-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+        }
+
+        .toc-item {
+            background: white;
+            padding: 2rem;
+            border-left: 5px solid var(--color-teal);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .toc-item:nth-child(2) { border-left-color: var(--color-orange); }
+        .toc-item:nth-child(3) { border-left-color: var(--color-purple); }
+        .toc-item:nth-child(4) { border-left-color: var(--color-blue); }
+        .toc-item:nth-child(5) { border-left-color: var(--color-pink); }
+        .toc-item:nth-child(6) { border-left-color: var(--color-green); }
+
+        .toc-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .toc-number {
+            font-size: 3rem;
+            font-weight: bold;
+            opacity: 0.2;
+            line-height: 1;
+        }
+
+        .toc-item-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .toc-item-desc {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Content Pages - Varied Designs */
+        .content-page {
+            display: grid;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-number {
+            font-size: 1rem;
+            color: var(--color-teal);
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            margin: 1rem 0;
+            line-height: 1.1;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Introduction Page - Split Design */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .intro-image {
+            width: 100%;
+            height: 500px;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            background: #f5f5f5;
+        }
+
+        .intro-text {
+            font-size: 1.15rem;
+            line-height: 1.9;
+        }
+
+        .intro-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(33, 141, 141, 0.1) 0%, rgba(29, 78, 216, 0.1) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--color-teal);
+            margin: 2rem 0;
+        }
+
+        /* Traditional Model - Vintage Style */
+        .traditional-page {
+            background: linear-gradient(to bottom, #f5f5dc 0%, #fff 100%);
+        }
+
+        .vintage-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+        }
+
+        .vintage-image-stack {
+            position: relative;
+        }
+
+        .vintage-img {
+            width: 100%;
+            height: 450px;
+            object-fit: contain;
+            border: 12px solid white;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+            transform: rotate(-3deg);
+            margin-bottom: 2rem;
+            background: #f5f5f5;
+        }
+
+        .vintage-content h3 {
+            font-size: 2rem;
+            color: var(--color-orange);
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--color-orange);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            font-size: 1.05rem;
+        }
+
+        .feature-list li::before {
+            content: "→";
+            color: var(--color-orange);
+            font-weight: bold;
+            margin-right: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Behaviorist Model - Bold Modern */
+        .behaviorist-page {
+            background: linear-gradient(135deg, rgba(107, 33, 168, 0.05) 0%, rgba(190, 24, 93, 0.05) 100%);
+        }
+
+        .split-hero {
+            display: grid;
+            grid-template-columns: 40% 60%;
+            height: 600px;
+            margin-bottom: 3rem;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.2);
+        }
+
+        .hero-image {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            background: linear-gradient(135deg, var(--color-purple) 0%, var(--color-pink) 100%);
+            color: white;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--color-purple);
+        }
+
+        .info-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-purple);
+        }
+
+        /* Cognitive Model - Creative Artistic */
+        .cognitive-page {
+            background: radial-gradient(circle at top right, rgba(21, 128, 64, 0.08) 0%, white 50%);
+        }
+
+        .artistic-layout {
+            position: relative;
+        }
+
+        .brain-visual {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            margin: 3rem auto;
+            background-image: url('https://pplx-res.cloudinary.com/image/upload/v1756268341/pplx_project_search_images/c11e39882a9865816b44c65988878a8da1a5f99c.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            position: relative;
+            background-color: #f5f5f5;
+        }
+
+        .floating-text {
+            position: absolute;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 300px;
+        }
+
+        .floating-text.top-left {
+            top: -50px;
+            left: -50px;
+            border-left: 5px solid var(--color-green);
+        }
+
+        .floating-text.bottom-right {
+            bottom: -50px;
+            right: -50px;
+            border-left: 5px solid var(--color-blue);
+        }
+
+        .text-columns {
+            column-count: 2;
+            column-gap: 3rem;
+            margin-top: 4rem;
+            font-size: 1.1rem;
+            line-height: 1.9;
+        }
+
+        /* Critical Pedagogy - Documentary Style */
+        .critical-page {
+            background: linear-gradient(to right, #000 0%, #1a1a1a 100%);
+            color: white;
+        }
+
+        .documentary-header {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            align-items: center;
+        }
+
+        .documentary-portrait {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            border: 5px solid var(--color-yellow);
+            box-shadow: 0 20px 50px rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .documentary-title-area h2 {
+            font-size: 4rem;
+            color: var(--color-yellow);
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .documentary-title-area p {
+            font-size: 1.3rem;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        .quote-block {
+            background: rgba(255,255,255,0.05);
+            border-left: 6px solid var(--color-yellow);
+            padding: 2.5rem;
+            margin: 3rem 0;
+            font-size: 1.4rem;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .principle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .principle-card {
+            background: rgba(255,255,255,0.08);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .principle-card h4 {
+            color: var(--color-yellow);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Comparison Page - Infographic Style */
+        .comparison-page {
+            background: linear-gradient(135deg, #fff 0%, rgba(29, 78, 216, 0.05) 100%);
+        }
+
+        .comparison-table {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .comparison-column {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-top: 8px solid var(--color-blue);
+        }
+
+        .comparison-column:nth-child(2) { border-top-color: var(--color-orange); }
+        .comparison-column:nth-child(3) { border-top-color: var(--color-green); }
+
+        .comparison-column h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .comparison-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .comparison-item strong {
+            display: block;
+            color: var(--color-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* Conclusion Page - Magazine Style */
+        .conclusion-page {
+            background: linear-gradient(to bottom, var(--color-teal) 0%, var(--color-blue) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .conclusion-content {
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .conclusion-content h2 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .conclusion-content p {
+            font-size: 1.3rem;
+            line-height: 2;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+
+        .conclusion-highlight {
+            background: rgba(255,255,255,0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 3rem;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        /* References Page */
+        .references-page {
+            background: #f8f8f8;
+        }
+
+        .references-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .references-content h2 {
+            font-size: 3rem;
+            color: var(--color-teal);
+            margin-bottom: 3rem;
+            border-bottom: 4px solid var(--color-teal);
+            padding-bottom: 1rem;
+        }
+
+        .reference-item {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--color-teal);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .intro-grid, .vintage-layout, .split-hero, .documentary-header {
+                grid-template-columns: 1fr;
+            }
+
+            .text-columns {
+                column-count: 1;
+            }
+
+            .comparison-table {
+                grid-template-columns: 1fr;
+            }
+
+            .cover-title {
+                font-size: 3rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="magazine-container">
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="nav-title">PEDAGOGICAL MODELS MAGAZINE</div>
+            <div class="nav-links">
+                <a href="#cover">Cover</a>
+                <a href="#toc">Contents</a>
+                <a href="#intro">Introduction</a>
+                <a href="#traditional">Traditional</a>
+                <a href="#behaviorist">Behaviorist</a>
+                <a href="#cognitive">Cognitive</a>
+                <a href="#critical">Critical</a>
+                <a href="#comparison">Comparison</a>
+                <a href="#conclusion">Conclusion</a>
+                <a href="#references">References</a>
+            </div>
+        </nav>
+
+        <!-- Cover Page -->
+        <section id="cover" class="page cover-page">
+            <div class="cover-content">
+                <h1 class="cover-title">Pedagogical Models</h1>
+                <p class="cover-subtitle">Understanding the Foundations of Modern Education</p>
+                <p class="cover-meta">A comprehensive exploration of teaching approaches and educational frameworks</p>
+                <p class="cover-meta">Digital Academic Magazine | 2025 Edition</p>
+            </div>
+        </section>
+
+        <!-- Table of Contents -->
+        <section id="toc" class="page toc-page">
+            <h2 class="toc-title">CONTENTS</h2>
+            <div class="toc-grid">
+                <div class="toc-item" onclick="location.href='#intro'">
+                    <div class="toc-number">01</div>
+                    <h3 class="toc-item-title">Introduction to Pedagogical Models</h3>
+                    <p class="toc-item-desc">Understanding models, paradigms, and their role in education</p>
+                </div>
+                <div class="toc-item" onclick="location.href='#traditional'">
+                    <div class="toc-number">02</div>
+                    <h3 class="toc-item-title">Traditional Pedagogy</h3>
+                    <p class="toc-item-desc">The classical teacher-centered approach and its historical context</p>
+                </div>
+                <div class="toc-item" onclick="location.href='#behaviorist'">
+                    <div class="toc-number">03</div>
+                    <h3 class="toc-item-title">Behaviorist Pedagogy</h3>
+                    <p class="toc-item-desc">Learning through stimulus, response, and reinforcement</p>
+                </div>
+                <div class="toc-item" onclick="location.href='#cognitive'">
+                    <div class="toc-number">04</div>
+                    <h3 class="toc-item-title">Cognitive Pedagogy</h3>
+                    <p class="toc-item-desc">Mental processes, schemas, and meaningful learning</p>
+                </div>
+                <div class="toc-item" onclick="location.href='#critical'">
+                    <div class="toc-number">05</div>
+                    <h3 class="toc-item-title">Critical Pedagogy</h3>
+                    <p class="toc-item-desc">Paulo Freire and the pedagogy of liberation</p>
+                </div>
+                <div class="toc-item" onclick="location.href='#comparison'">
+                    <div class="toc-number">06</div>
+                    <h3 class="toc-item-title">Comparative Analysis</h3>
+                    <p class="toc-item-desc">Similarities, differences, and practical applications</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- THEME 3: Issues Related to Pedagogical Models -->
+        <div style="background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-blue) 100%); color: white; padding: 1.5rem 2rem; text-align: center; position: sticky; top: 60px; z-index: 999; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            <h2 style="font-size: 1.8rem; margin: 0; letter-spacing: 1px; text-transform: uppercase;">📘 THEME 3: Issues Related to Pedagogical Models</h2>
+        </div>
+
+        <!-- Introduction Page -->
+        <section id="intro" class="page">
+            <div class="content-page">
+                <div class="page-header">
+                    <div class="page-number">CHAPTER 01</div>
+                    <h2 class="page-title">Understanding Pedagogical Models</h2>
+                    <p class="page-subtitle">The Foundation of Educational Practice</p>
+                </div>
+
+                <div class="intro-grid">
+                    <div>
+                        <img src="https://pplx-res.cloudinary.com/image/upload/v1762654858/pplx_project_search_images/18a0cf0a8ed3cedfadb3058bbb62a03ae2f617bb.png" alt="Modern Collaborative Classroom" class="intro-image">
+                    </div>
+                    <div class="intro-text">
+                        <p><strong>A pedagogical model</strong> is a comprehensive system that establishes teaching techniques, strategies, and methodologies to ensure students achieve meaningful learning. These models serve as theoretical frameworks guiding educational purposes, content organization, and the relationships between teachers, students, and knowledge.</p>
+                        <p>The term "pedagogy" originates from ancient Greek words <em>paidos</em> (child) and <em>agōgós</em> (to carry or drive), initially referring to those who guide children's learning. Today, pedagogy encompasses the scientific study of education, focusing on human development and formation through organized, planned, and evaluated processes.</p>
+                        <p>Pedagogical models answer fundamental questions: What kind of person do we want to form? What should be taught? How should learning occur? Who directs the educational process? With what methods and resources?</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3 style="color: var(--color-teal); margin-bottom: 1rem; font-size: 1.5rem;">Key Definitions</h3>
+                    <p><strong>Educational Model:</strong> A set of rules, norms, and approaches that create knowledge structures through pedagogical methods, providing complete and comprehensive training for each student.</p>
+                    <p style="margin-top: 1rem;"><strong>Pedagogical Paradigm:</strong> A broad philosophical perspective that shapes how the educational process is understood and implemented, representing theories and approaches that explain learning and development.</p>
+                    <p style="margin-top: 1rem;"><strong>Scientific Model in Education:</strong> A simplified representation of educational systems used to explain processes, visualize phenomena, and make predictions about learning outcomes.</p>
+                </div>
+
+                <div class="intro-text" style="margin-top: 2rem;">
+                    <p>According to distinguished Colombian educator <strong>Julián De Zubiría</strong>, pedagogical models are broad representations of educational phenomena that open spaces for reflection within pedagogical tasks. He proposes two main types: hetero-structured models (teacher-centered) and self-structured models (student-centered).</p>
+                    <p><strong>Rafael Flórez Ochoa</strong>, another prominent Colombian educator, emphasizes that pedagogical models must address educational goals, teaching contents, teacher-student relationships, teaching methods, concepts of development, and institutional structures. These models, he argues, help form students' character through will, virtue, and disciplined rigor.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- THEME 4: Pedagogical Models - Features and Review -->
+        <div style="background: linear-gradient(135deg, var(--color-orange) 0%, var(--color-purple) 100%); color: white; padding: 1.5rem 2rem; text-align: center; position: sticky; top: 60px; z-index: 999; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            <h2 style="font-size: 1.8rem; margin: 0; letter-spacing: 1px; text-transform: uppercase;">📚 THEME 4: Pedagogical Models - Features and Review</h2>
+        </div>
+
+        <!-- Traditional Pedagogy Page -->
+        <section id="traditional" class="page traditional-page">
+            <div class="content-page">
+                <div class="page-header">
+                    <div class="page-number" style="color: var(--color-orange);">CHAPTER 02</div>
+                    <h2 class="page-title" style="color: var(--color-orange);">Traditional Pedagogy</h2>
+                    <p class="page-subtitle">The Classical Teacher-Centered Approach</p>
+                </div>
+
+                <div class="vintage-layout">
+                    <div class="vintage-image-stack">
+                        <img src="https://pplx-res.cloudinary.com/image/upload/v1757703897/pplx_project_search_images/c1e05b28219304ce75a6f01d47cedcee2f53fbba.png" alt="Traditional Classroom" class="vintage-img">
+                    </div>
+                    <div class="vintage-content">
+                        <h3>Historical Context</h3>
+                        <p style="margin-bottom: 1.5rem;">Traditional pedagogy emerged in 17th century Europe with the rise of the bourgeoisie as an expression of modernity. It found concrete form in the 18th and 19th centuries with the establishment of public schools in Europe and Latin America, coinciding with republican revolutions and liberal political-social doctrine.</p>
+                        
+                        <h3 style="margin-top: 2rem;">Core Characteristics</h3>
+                        <ul class="feature-list">
+                            <li><strong>Teacher Authority:</strong> The educator assumes absolute power and authority as the essential transmitter of knowledge</li>
+                            <li><strong>Discipline-Focused:</strong> Emphasis on obedience, order, and maintaining social structure</li>
+                            <li><strong>Passive Learning:</strong> Students primarily listen, repeat, and memorize information</li>
+                            <li><strong>Fixed Curriculum:</strong> Content presented as finished truths, divorced from student experiences</li>
+                            <li><strong>Expository Method:</strong> Lectures and verbal transmission dominate instructional approach</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    <h3 style="color: var(--color-orange); font-size: 2rem; margin-bottom: 1.5rem;">Role Definitions</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div>
+                            <h4 style="color: var(--color-orange); margin-bottom: 1rem;">Teacher's Role</h4>
+                            <p>The teacher is the center of the teaching and education process, holding complete responsibility for content delivery, classroom management, and student evaluation. The instructor decides what, how, and when to teach, maintaining authority and discipline.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--color-orange); margin-bottom: 1rem;">Student's Role</h4>
+                            <p>Students have limited space to think independently and develop original knowledge. Learning requires memorization with minimal practical activities. Students carry out tasks assigned by teachers, adopting a passive and dependent role.</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(230, 129, 97, 0.1); border-left: 4px solid var(--color-orange);">
+                        <p><strong>Modern Evolution:</strong> While maintaining face-to-face fundamentals, traditional teaching has evolved to include virtual and online modalities, adapting classical structures to contemporary educational environments.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Behaviorist Pedagogy Page -->
+        <section id="behaviorist" class="page behaviorist-page">
+            <div class="content-page">
+                <div class="page-header">
+                    <div class="page-number" style="color: var(--color-purple);">CHAPTER 03</div>
+                    <h2 class="page-title" style="color: var(--color-purple);">Behaviorist Pedagogy</h2>
+                    <p class="page-subtitle">Learning Through Stimulus and Response</p>
+                </div>
+
+                <div class="split-hero">
+                    <div class="hero-image" style="background-image: url('https://pplx-res.cloudinary.com/image/upload/v1762654858/pplx_project_search_images/3b3ed884f767ad751b84eae3a7303cd81ad1155d.png');"></div>
+                    <div class="hero-content">
+                        <h2>The Science of Behavior</h2>
+                        <p>Behaviorism, developed in the 20th century, is founded on the principle that all behaviors are acquired through interaction with the environment via conditioning. This model seeks to systematically develop knowledge, skills, and competencies through observable behavioral changes.</p>
+                        <p style="margin-top: 1rem;">Actions are determined by environmental influences, and learning occurs through reinforcement—the constant feedback that shapes desired behaviors. Teachers observe and analyze student actions to evaluate learning effectiveness.</p>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 2.5rem; color: var(--color-purple); margin: 3rem 0 2rem 0; text-align: center;">Key Principles & Applications</h3>
+
+                <div class="info-cards">
+                    <div class="info-card">
+                        <h4>Stimulus-Response Model</h4>
+                        <p>Learning requires a clear stimulus and corresponding response. Teachers motivate students by channeling their interests through carefully designed stimuli that encourage engagement with content and achievement of learning objectives.</p>
+                    </div>
+                    <div class="info-card" style="border-top-color: var(--color-pink);">
+                        <h4 style="color: var(--color-pink);">Positive Reinforcement</h4>
+                        <p>Rewards strengthen desired behaviors. Examples include celebrations for good weekly behavior, bonus points for participation, or homework exemptions for exceptional conduct. Reinforcement must be consistent and immediate to be effective.</p>
+                    </div>
+                    <div class="info-card" style="border-top-color: var(--color-orange);">
+                        <h4 style="color: var(--color-orange);">Conditioning Process</h4>
+                        <p>Behaviors are shaped through repeated exposure to specific stimuli, conditioning students to produce expected responses. The teacher acts as an intermediary who executes learning through structured instructions that students apply systematically.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; background: white; padding: 2.5rem; border-radius: 15px;">
+                    <h3 style="color: var(--color-purple); font-size: 2rem; margin-bottom: 1.5rem;">Influential Theorists</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div style="padding: 1.5rem; background: rgba(107, 33, 168, 0.05); border-radius: 10px;">
+                            <h4 style="color: var(--color-purple); font-size: 1.3rem; margin-bottom: 0.5rem;">John B. Watson (1878-1958)</h4>
+                            <p>American psychologist who established that human behavior results from specific stimuli producing certain responses. Watson emphasized observable behaviors over internal mental processes, laying groundwork for behavioral psychology.</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: rgba(190, 24, 93, 0.05); border-radius: 10px;">
+                            <h4 style="color: var(--color-pink); font-size: 1.3rem; margin-bottom: 0.5rem;">B.F. Skinner (1904-1990)</h4>
+                            <p>Distinguished between informal learning (occurring naturally) and formal education (teacher-dependent). Developed operant conditioning theory, emphasizing reinforcement schedules and systematic behavior modification in educational settings.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cognitive Pedagogy Page -->
+        <section id="cognitive" class="page cognitive-page">
+            <div class="content-page">
+                <div class="page-header">
+                    <div class="page-number" style="color: var(--color-green);">CHAPTER 04</div>
+                    <h2 class="page-title" style="color: var(--color-green);">Cognitive Pedagogy</h2>
+                    <p class="page-subtitle">Understanding Mental Processes in Learning</p>
+                </div>
+
+                <div class="artistic-layout">
+                    <div style="position: relative;">
+                        <div class="brain-visual">
+                            <div class="floating-text top-left">
+                                <h4 style="color: var(--color-green); font-size: 1.3rem; margin-bottom: 0.5rem;">Information Processing</h4>
+                                <p style="font-size: 0.95rem;">Our mind functions like a computer, receiving, organizing, storing, and retrieving information through complex cognitive processes.</p>
+                            </div>
+                            <div class="floating-text bottom-right">
+                                <h4 style="color: var(--color-blue); font-size: 1.3rem; margin-bottom: 0.5rem;">Schema Development</h4>
+                                <p style="font-size: 0.95rem;">Learning builds upon existing knowledge structures, progressively developing schemas throughout life as the basic units of cognition.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 5rem; background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--color-green); font-size: 2.3rem; margin-bottom: 1.5rem;">The Cognitive Revolution</h3>
+                        <p style="font-size: 1.15rem; line-height: 1.9; margin-bottom: 1.5rem;">Cognitive pedagogy emerged with psychology as a differentiated science, focusing on internal mental processes that manage and control stimuli affecting behavior. This approach explores human capacities for thought, perception, attention, memory, and decision-making.</p>
+                        <p style="font-size: 1.15rem; line-height: 1.9;">Founded by <strong>Jean Piaget</strong> in the 1930s, cognitive psychology established that learning is linked to what students already know and how they process new information. The primary objective is enabling each individual to access intellectual development progressively and sequentially, aligned with personal needs and conditions.</p>
+                    </div>
+
+                    <div class="text-columns" style="margin-top: 3rem;">
+                        <h3 style="color: var(--color-green); font-size: 2rem; margin-bottom: 1.5rem; column-span: all;">Core Principles</h3>
+                        
+                        <p><strong style="color: var(--color-green);">Active Learning:</strong> Students learn by doing, becoming active participants rather than passive recipients. The theory emphasizes that understanding improves when learners engage directly with new tasks, subjects, and materials.</p>
+
+                        <p><strong style="color: var(--color-green);">Teacher as Guide:</strong> Educators help students use prior knowledge to assess what they need to build new mental connections. Rather than delivering information, teachers facilitate discovery and construction of understanding.</p>
+
+                        <p><strong style="color: var(--color-green);">Assimilation and Accommodation:</strong> Piaget identified two key processes: assimilation (adjusting new experiences to fit existing concepts) and accommodation (modifying existing concepts to fit new experiences). Both are essential for cognitive growth.</p>
+
+                        <p><strong style="color: var(--color-green);">Mental Processes:</strong> Cognitivism examines internal processes including perception, attention, memory, and decision-making. Our minds process information perceived through our senses—smell, touch, hearing, taste, and sight.</p>
+
+                        <p><strong style="color: var(--color-green);">Optimizing Learning:</strong> Cognitive approaches aim to maximize ability to learn, understand, and retain new information by connecting it with existing knowledge structures, creating meaningful and lasting learning experiences.</p>
+
+                        <p><strong style="color: var(--color-green);">Practical Application:</strong> When students learn vocabulary or concepts, cognitive theory suggests they will naturally attempt to apply this knowledge in new situations, demonstrating transfer of learning and meaningful understanding.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Critical Pedagogy Page -->
+        <section id="critical" class="page critical-page">
+            <div class="content-page">
+                <div class="page-header">
+                    <div class="page-number" style="color: var(--color-yellow);">CHAPTER 05</div>
+                    <h2 class="page-title" style="color: var(--color-yellow);">Critical Pedagogy</h2>
+                    <p class="page-subtitle" style="color: rgba(255,255,255,0.8);">Paulo Freire and the Pedagogy of Liberation</p>
+                </div>
+
+                <div class="documentary-header">
+                    <img src="https://pplx-res.cloudinary.com/image/upload/v1762638335/pplx_project_search_images/935aeb79877e8730682adc45a397dfe26ab94732.png" alt="Paulo Freire" class="documentary-portrait">
+                    <div class="documentary-title-area">
+                        <h2>Paulo Freire</h2>
+                        <h3 style="font-size: 2rem; color: var(--color-yellow); font-weight: 300; margin-bottom: 1.5rem;">1921-1997</h3>
+                        <p>Brazilian educator and philosopher who revolutionized education through critical pedagogy, empowering learners to question, analyze, and transform their social reality. His seminal work <em>Pedagogy of the Oppressed</em> (1969) challenged traditional "banking" models of education.</p>
+                    </div>
+                </div>
+
+                <div class="quote-block">
+                    "Education either functions as an instrument to bring about conformity or freedom. Critical pedagogy leads individuals to question and think critically, transforming traditional education into meaningful liberation."
+                </div>
+
+                <div style="margin: 3rem 0;">
+                    <h3 style="color: var(--color-yellow); font-size: 2.3rem; margin-bottom: 1.5rem;">Foundations of Critical Teaching</h3>
+                    <p style="font-size: 1.15rem; line-height: 1.9; margin-bottom: 1.5rem;">Critical pedagogy is both a social movement and philosophical approach applying critical theory concepts to teaching and learning. It probes not only pedagogical purposes but the very act of educating itself, offering perspectives that reformulate traditional educational practices.</p>
+                    <p style="font-size: 1.15rem; line-height: 1.9;">This theoretical-practical proposal helps students develop consciousness for critical learning, focusing on empowerment to improve social conditions through understanding their social role and engaging in critical self-reflection. It creates more democratic learning environments through open dialogue between teachers and students.</p>
+                </div>
+
+                <h3 style="color: var(--color-yellow); font-size: 2rem; margin-bottom: 2rem; text-align: center;">Key Principles</h3>
+
+                <div class="principle-grid">
+                    <div class="principle-card">
+                        <h4>Consciousness-Raising</h4>
+                        <p>Education as a process of awareness about one's social condition, acquired through critical and reflective analysis of the surrounding world and power structures.</p>
+                    </div>
+                    <div class="principle-card">
+                        <h4>Problem-Posing Education</h4>
+                        <p>Rejecting "banking" education where teachers deposit information into passive students, instead posing problems that students and teachers investigate together as co-learners.</p>
+                    </div>
+                    <div class="principle-card">
+                        <h4>Dialogue and Participation</h4>
+                        <p>Learning occurs through genuine dialogue between equals. Teachers sit with students, share learning experiences, and guide rather than dictate, promoting collaborative knowledge construction.</p>
+                    </div>
+                    <div class="principle-card">
+                        <h4>Social Transformation</h4>
+                        <p>Education aims beyond individual development to collective liberation, connecting personal experiences with broader social contexts and working toward justice and equity.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; padding: 2.5rem; background: rgba(255,255,255,0.08); border-radius: 15px; border: 2px solid rgba(255,255,255,0.15);">
+                    <h3 style="color: var(--color-yellow); font-size: 1.8rem; margin-bottom: 1.5rem;">Practical Applications</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem;"><strong>Classroom Organization:</strong> Arrange students in circles or semicircles rather than traditional rows, promoting collaborative work and equal participation in discussions.</p>
+                    <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem;"><strong>Shared Authority:</strong> Teachers participate as co-learners alongside students, guiding rather than controlling, creating spaces for students to express informed opinions and challenge assumptions.</p>
+                    <p style="font-size: 1.1rem; line-height: 1.8;"><strong>Activity-Based Learning:</strong> Organize learning around discussions, projects, and activities that involve critical thinking, allowing students to connect knowledge with lived experiences and social realities.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Page -->
+        <section id="comparison" class="page comparison-page">
+            <div class="content-page">
+                <div class="page-header">
+                    <div class="page-number" style="color: var(--color-blue);">CHAPTER 06</div>
+                    <h2 class="page-title" style="color: var(--color-blue);">Comparative Analysis</h2>
+                    <p class="page-subtitle">Understanding Differences and Connections</p>
+                </div>
+
+                <div style="background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); margin-bottom: 3rem;">
+                    <h3 style="color: var(--color-blue); font-size: 2rem; margin-bottom: 1.5rem;">Models vs. Approaches</h3>
+                    <p style="font-size: 1.15rem; line-height: 1.9; margin-bottom: 1rem;">A <strong>pedagogical model</strong> is a compilation or synthesis of theories and approaches that help education professionals design study programs and systematize teaching-learning processes. It includes theory, procedures, and instruments serving as reference points for selecting appropriate methods.</p>
+                    <p style="font-size: 1.15rem; line-height: 1.9;">An <strong>approach</strong> describes how teachers teach based on intentions and strategies, representing beliefs about teaching and the purposes they pursue. Approaches give rise to methods—the specific ways of teaching—and techniques for classroom activities.</p>
+                </div>
+
+                <h3 style="font-size: 2.3rem; color: var(--color-blue); margin-bottom: 2rem; text-align: center;">Side-by-Side Comparison</h3>
+
+                <div class="comparison-table">
+                    <div class="comparison-column">
+                        <h3 style="color: var(--color-blue);">Traditional</h3>
+                        <div class="comparison-item">
+                            <strong>Focus:</strong>
+                            <p>Teacher-centered knowledge transmission</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Student Role:</strong>
+                            <p>Passive recipient, memorizes and repeats</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Teacher Role:</strong>
+                            <p>Authority figure, sole knowledge source</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Method:</strong>
+                            <p>Lectures, repetition, rote learning</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Evaluation:</strong>
+                            <p>Reproductive assessment, testing recall</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Goal:</strong>
+                            <p>Preserve order, transmit established knowledge</p>
+                        </div>
+                    </div>
+
+                    <div class="comparison-column">
+                        <h3 style="color: var(--color-orange);">Behaviorist</h3>
+                        <div class="comparison-item">
+                            <strong>Focus:</strong>
+                            <p>Observable behavioral changes through conditioning</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Student Role:</strong>
+                            <p>Responds to stimuli, shaped by reinforcement</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Teacher Role:</strong>
+                            <p>Designer of stimuli and reinforcement systems</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Method:</strong>
+                            <p>Reinforcement, rewards, punishment, repetition</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Evaluation:</strong>
+                            <p>Measuring specific behavioral outcomes</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Goal:</strong>
+                            <p>Acquire skills and competencies through practice</p>
+                        </div>
+                    </div>
+
+                    <div class="comparison-column">
+                        <h3 style="color: var(--color-green);">Cognitive</h3>
+                        <div class="comparison-item">
+                            <strong>Focus:</strong>
+                            <p>Internal mental processes and understanding</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Student Role:</strong>
+                            <p>Active constructor of knowledge and meaning</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Teacher Role:</strong>
+                            <p>Facilitator guiding cognitive development</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Method:</strong>
+                            <p>Problem-solving, discovery, schema building</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Evaluation:</strong>
+                            <p>Assessing understanding and application</p>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Goal:</strong>
+                            <p>Develop thinking skills and intellectual growth</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; background: linear-gradient(135deg, rgba(29, 78, 216, 0.1) 0%, rgba(33, 141, 141, 0.1) 100%); padding: 2.5rem; border-radius: 20px; border-left: 6px solid var(--color-blue);">
+                    <h3 style="color: var(--color-blue); font-size: 2rem; margin-bottom: 1.5rem;">Critical Pedagogy: A Transformative Alternative</h3>
+                    <p style="font-size: 1.15rem; line-height: 1.9; margin-bottom: 1rem;"><strong>Focus:</strong> Social consciousness and liberation through education</p>
+                    <p style="font-size: 1.15rem; line-height: 1.9; margin-bottom: 1rem;"><strong>Student Role:</strong> Critical thinker questioning and transforming reality</p>
+                    <p style="font-size: 1.15rem; line-height: 1.9; margin-bottom: 1rem;"><strong>Teacher Role:</strong> Co-learner facilitating dialogue and empowerment</p>
+                    <p style="font-size: 1.15rem; line-height: 1.9; margin-bottom: 1rem;"><strong>Method:</strong> Problem-posing, dialogue, critical reflection, collaborative inquiry</p>
+                    <p style="font-size: 1.15rem; line-height: 1.9;"><strong>Goal:</strong> Develop critical consciousness for social transformation and justice</p>
+                </div>
+
+                <div style="margin-top: 3rem; background: white; padding: 2.5rem; border-radius: 15px;">
+                    <h3 style="color: var(--color-blue); font-size: 1.8rem; margin-bottom: 1.5rem;">Common Ground</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">Despite their differences, all pedagogical models share the ultimate goal of student development and learning. Each provides valuable insights: Traditional models offer structure and discipline, Behaviorist approaches demonstrate the power of reinforcement, Cognitive theories reveal learning mechanisms, and Critical pedagogy emphasizes social context and empowerment. Effective educators draw from multiple models, adapting approaches to student needs, content requirements, and educational contexts.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion Page -->
+        <section id="conclusion" class="page conclusion-page">
+            <div class="conclusion-content">
+                <h2>The Future of Education</h2>
+                <p>Understanding pedagogical models is essential for educators navigating the complex landscape of modern education. Each model offers unique perspectives on how humans learn, what knowledge matters, and how teaching should occur.</p>
+                <p>There is no single "best" pedagogical model. Effective education requires thoughtful integration of multiple approaches, responsive to student needs, cultural contexts, and learning objectives. As education continues evolving, new models emerge while classical approaches adapt.</p>
+                <p>The most successful educators maintain flexibility, drawing strategically from traditional structure, behaviorist reinforcement, cognitive understanding, and critical consciousness to create rich, meaningful learning experiences.</p>
+                <div class="conclusion-highlight">
+                    Education is not merely about transmitting information—it's about developing human potential, fostering critical thinking, and preparing individuals to contribute meaningfully to society.
+                </div>
+            </div>
+        </section>
+
+        <!-- References Page -->
+        <section id="references" class="page references-page">
+            <div class="references-content">
+                <h2>References & Bibliography</h2>
+                
+                <div class="reference-item">
+                    Carretero, M. (1997). <em>Introducción a la psicología cognitiva</em>. Buenos Aires: Aique.
+                </div>
+                
+                <div class="reference-item">
+                    Carty, L., & Baker, D. (2014). <em>Pedagogical Models in Contemporary Education</em>. Educational Review Journal, 45(3), 234-256.
+                </div>
+                
+                <div class="reference-item">
+                    De Zubiría, J. (2007). <em>Los modelos pedagógicos: Hacia una pedagogía dialogante</em>. Bogotá: Cooperativa Editorial Magisterio.
+                </div>
+                
+                <div class="reference-item">
+                    Flórez Ochoa, R. (1999). <em>Evaluación pedagógica y cognición</em>. Bogotá: McGraw-Hill.
+                </div>
+                
+                <div class="reference-item">
+                    Flórez Ochoa, R. (2005). <em>Pedagogía del conocimiento</em> (2nd ed.). Bogotá: McGraw-Hill Interamericana.
+                </div>
+                
+                <div class="reference-item">
+                    Freire, P. (1969). <em>Pedagogía del oprimido</em>. Montevideo: Tierra Nueva.
+                </div>
+                
+                <div class="reference-item">
+                    Joyce, B., & Weil, M. (1985). <em>Models of Teaching</em> (3rd ed.). Englewood Cliffs, NJ: Prentice-Hall.
+                </div>
+                
+                <div class="reference-item">
+                    Piaget, J. (1936). <em>Origins of intelligence in the child</em>. London: Routledge & Kegan Paul.
+                </div>
+                
+                <div class="reference-item">
+                    Skinner, B. F. (1953). <em>Science and Human Behavior</em>. New York: Macmillan.
+                </div>
+                
+                <div class="reference-item">
+                    Universidad de las Fuerzas Armadas ESPE. (2025). <em>Pedagogical Models and Didactics - Course Materials</em>. Quito: ESPE Virtual Campus.
+                </div>
+                
+                <div class="reference-item">
+                    Vygotsky, L. S. (1978). <em>Mind in Society: The Development of Higher Psychological Processes</em>. Cambridge, MA: Harvard University Press.
+                </div>
+                
+                <div class="reference-item">
+                    Watson, J. B. (1913). Psychology as the behaviorist views it. <em>Psychological Review</em>, 20(2), 158-177.
+                </div>
+
+                <div style="margin-top: 3rem; padding: 2rem; background: white; border-radius: 15px; text-align: center;">
+                    <p style="font-size: 1.1rem; color: var(--color-teal); font-weight: bold;">Digital Academic Magazine</p>
+                    <p style="color: #666; margin-top: 0.5rem;">Universidad de las Fuerzas Armadas ESPE</p>
+                    <p style="color: #666; margin-top: 0.5rem;">Pedagogical Models and Didactics Course</p>
+                    <p style="color: #666; margin-top: 0.5rem;">2025 Edition</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all major content sections
+        document.querySelectorAll('.page').forEach(page => {
+            page.style.opacity = '0';
+            page.style.transform = 'translateY(30px)';
+            page.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(page);
+        });
+    </script>
+</body>
+</html>
+
